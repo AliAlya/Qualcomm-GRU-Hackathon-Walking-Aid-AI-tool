@@ -73,9 +73,9 @@ void loop() {
   GyroZ = GyroZ + 0.79; // GyroErrorZ ~ (-0.8)
 
   // Currently the raw values are in degrees per seconds, deg/s, so we need to multiply by sendonds (s) to get the angle in degrees
-  gyroAngleX = gyroAngleX + GyroX * elapsedTime; // deg/s * s = deg
-  gyroAngleY = gyroAngleY + GyroY * elapsedTime;
-  yaw =  yaw + GyroZ * elapsedTime;
+  gyroAngleX = gyroAngleX ; // deg/s * s = deg
+  gyroAngleY = gyroAngleY  ;
+  yaw =  yaw  ;
 
   // Complementary filter - combine acceleromter and gyro angle values
   roll = 0.96 * gyroAngleX + 0.04 * accAngleX;
@@ -143,7 +143,7 @@ void calculate_IMU_error() {
   Serial.println(GyroErrorZ);
 }
 
-
+/*
 -----------------------------------------------------------------------------------------------
 Results:-
 X =  Y =  Z = 
@@ -151,4 +151,7 @@ X =  Y =  Z =
 
 Important Note:-
 ----------------
-<p>In the loop section we start by reading the accelerometer data. The data for each axis is stored in 2 bytes or registers and we can see the addresses of these registers from the datasheet of the sensor.</p><p>In order to read them all, we start with the first register, and using the requiestFrom() function we request to read all 6 registers for the X, Y and Z axes. Then we read the data from each register, and because the outputs are twos complement, we combine them appropriately to get the correct values.</p>
+*/
+//  <p>In the loop section we start by reading the accelerometer data. The data for each axis is stored in 2 bytes or registers and we can see the addresses of these registers from the datasheet of the sensor.</p><p>In order to read them all, we start with the first register, and using the requiestFrom() function we request to read all 6 registers for the X, Y and Z axes. Then we read the data from each register, and because the outputs are twos complement, we combine them appropriately to get the correct values.</p>
+
+
