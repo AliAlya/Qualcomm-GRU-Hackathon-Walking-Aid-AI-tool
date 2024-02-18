@@ -28,7 +28,7 @@ void loop()
   data.X = map(ax, -17000, 17000, 0, 255 ); // X axis data
   data.Y = map(ay, -17000, 17000, 0, 255); 
   data.Z = map(az, -17000, 17000, 0, 255);  // Y axis data
-  delay(10);
+  // delay(10);
   // Serial.print("Axis X = ");
   // Serial.print(data.X);
   // Serial.print("  ");
@@ -46,8 +46,7 @@ void loop()
   Serial.print(gz/100); Serial.print(", ");
   Serial.print(data.X); Serial.print(", ");
   Serial.print(data.Y); Serial.print(", ");
-  Serial.println(data.Z);
-
+  Serial.println(data.Z); 
 
 }
 
