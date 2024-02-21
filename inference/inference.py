@@ -130,6 +130,14 @@ import torch.nn as nn
 import numpy as np
 import serial
 import time
+import requests
+
+offset = 0.0
+
+url = 'https://v6ma9h036i.execute-api.us-east-1.amazonaws.com/default/gait'
+
+
+
 
 class SensorBuffer:
     def __init__(self, max_size):
@@ -202,6 +210,7 @@ if __name__ == "__main__":
     freq = 30
     period = 1 / freq
 
+    post_time = time.time()
     while True:
         start = time.time()
         data1 = read_serial_data(ser1)
@@ -221,7 +230,21 @@ if __name__ == "__main__":
                     print(f"Error processing data: {e}")
 
         if len(sensor_buffer.buffer) == sensor_buffer.max_size:
-            print("PRED:", sensor_buffer.get_avg_pred() - 0.2)
+            if time.time() - post_time > 3:
+                data = {
+                    "id": "1",
+                    "value": str(sensor_buffer.get_avg_pred() - offset)
+                }
+
+                response = requests.post(url, json=data)
+
+                # Check the response
+                print(response.status_code)
+                print(response.text)
+                response = requests.post(url, json=data)
+                post_time = time.time()
+
+            print("PRED:", sensor_buffer.get_avg_pred() - offset)
         else:
             print(len(sensor_buffer.buffer), sensor_buffer.max_size)
         elapsed = time.time() - start
